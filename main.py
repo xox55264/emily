@@ -8,7 +8,7 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
-@app.route('/chatbot/helloworld')
+@app.route('/')
 def hello_world():
     return 'Hello, World!'
 
