@@ -32,7 +32,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_text = TextSendMessage(text=event.message.text)
-    test_template = '''{
+    test_template = {
   "type": "template",
   "altText": "",
   "template": {
@@ -66,7 +66,7 @@ def handle_message(event):
           }
       ]
   }
-}'''
+}
     line_bot_api.reply_message(
         event.reply_token,
         [test_template, reply_text])
