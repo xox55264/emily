@@ -49,7 +49,7 @@ def handle_message(event):
             ]
         )
     )
-    #print(TextMessage)
+    print(TextMessage)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
