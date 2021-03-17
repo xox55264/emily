@@ -14,7 +14,8 @@ class Intention(object):
         return template.menu_template(text)
 
     def simple_text_processer(self, status, user_id, text):
-        status_update = self.status_helper.set_status(self.status_helper.get_next_status(status), user_id)
+        next_status = self.status_helper.get_next_status(status)
+        status_update = self.status_helper.set_status(next_status, user_id)
         # if status_update:
             # reply_template = template.item_template(text)
             # return reply_template, status_update
