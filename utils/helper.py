@@ -13,8 +13,8 @@ class RedisHelper(object):
     def get_value(self, key):
         return self.r.get(key)
 
-    def set_value(self, key, value, expire=60):
-        return self.r.set(key, value, ex=expire, nx=True)
+    def set_value(self, key, value):
+        return self.r.set(key, value, ex=60, nx=True)
 
     def compare_vaule(self, key, value):
         return value == self.get_value(key)
