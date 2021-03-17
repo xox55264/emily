@@ -65,7 +65,7 @@ def handle_postback(event):
     user_id = event.source.user_id
     if status_helper.check_status(data['status'], user_id):
         if data['status'] == 'accounting':
-            reply_template = accounting_template.start_accounting()
+            reply_template = accounting_template.start_accounting(data, user_id)
 
         print(event.source.user_id)
         line_bot_api.reply_message(
