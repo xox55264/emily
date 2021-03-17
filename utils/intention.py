@@ -44,6 +44,7 @@ class Accounting(Intention):
         return reply_template
 
     def get_date(self, data, user_id):
+        print(data['date'])
         if data['date']:
             reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '請輸入項目')
         else:
