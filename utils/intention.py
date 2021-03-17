@@ -15,9 +15,11 @@ class Intention(object):
 
     def simple_text_processer(self, status, user_id, text):
         status_update = self.status_helper.set_status(self.status_helper.get_next_status(status), user_id)
-        if status_update:
-            reply_template = template.item_template(text)
-            return reply_template, status_update
+        # if status_update:
+            # reply_template = template.item_template(text)
+            # return reply_template, status_update
+        reply_template = template.simple_text_template(text)
+        return reply_template, status_update
 
     def set_temporary_data(self, status, user_id, value):
         return self.redis_helper.set_value(f'{status}_{user_id}', value)
