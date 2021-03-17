@@ -53,7 +53,7 @@ def handle_message(event):
         event.reply_token,
         [template_message, reply_text])
 
-@handler.add(PostbackEvent, message=TextMessage)
+@handler.add(PostbackEvent)
 def handle_postback(event):
     reply_text = TextSendMessage(text='postback event')
     template_message = TemplateSendMessage(
