@@ -28,6 +28,7 @@ class Intention(object):
     def simple_message_processer(self, status, user_id, value, text):
         reply_template, status_update = self.simple_text_processer(status, user_id, text)
         data_storage = self.set_temporary_data(status, user_id, value)
+        print(data_storage, status_update)
         if data_storage & status_update:
             return reply_template
 
