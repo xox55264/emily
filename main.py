@@ -34,27 +34,30 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    reply_text = TextSendMessage(text=event.message.text)
-    template_message = TemplateSendMessage(
-        alt_text='test alt text',
-        template=ButtonsTemplate(
-            title='這是ButtonsTemplate',
-            text='ButtonsTemplate可以傳送text,uri',
-            actions=[
-                MessageTemplateAction(
-                    label='ButtonsTemplate',
-                    text='ButtonsTemplate'
-                ),
-                PostbackTemplateAction(
-                    label='test label',
-                    data='{"a":"123", "b": "456"}'
-                )
-            ]
-        )
-    )
     line_bot_api.reply_message(
         event.reply_token,
-        [template_message, reply_text])
+        Intention.menu(False))
+    # reply_text = TextSendMessage(text=event.message.text)
+    # template_message = TemplateSendMessage(
+    #     alt_text='test alt text',
+    #     template=ButtonsTemplate(
+    #         title='這是ButtonsTemplate',
+    #         text='ButtonsTemplate可以傳送text,uri',
+    #         actions=[
+    #             MessageTemplateAction(
+    #                 label='ButtonsTemplate',
+    #                 text='ButtonsTemplate'
+    #             ),
+    #             PostbackTemplateAction(
+    #                 label='test label',
+    #                 data='{"a":"123", "b": "456"}'
+    #             )
+    #         ]
+    #     )
+    # )
+    # line_bot_api.reply_message(
+    #     event.reply_token,
+    #     [template_message, reply_text])
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
