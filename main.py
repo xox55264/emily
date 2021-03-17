@@ -62,18 +62,18 @@ def handle_postback(event):
             title='這是ButtonsTemplate',
             text='ButtonsTemplate可以傳送text,uri',
             actions=[
-                MessageTemplateAction(
-                    label='ButtonsTemplate',
-                    text='ButtonsTemplate'
+                PostbackTemplateAction(
+                    label='test label1',
+                    data='a=1&b=2'
                 ),
                 PostbackTemplateAction(
-                    label='test label',
+                    label='test label2',
                     data='{a:"123", b: "456"}'
                 )
             ]
         )
     )
-    print(event.postback.data)
+    print(type(event.postback.data))
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
