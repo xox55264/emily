@@ -33,7 +33,7 @@ def callback():
 def handle_message(event):
     reply_text = TextSendMessage(text=event.message.text)
     template_message = TemplateSendMessage(TemplateSendMessage(
-        alt_text='Buttons Template',
+        alt_text='',
         template=ButtonsTemplate(
             title='這是ButtonsTemplate',
             text='ButtonsTemplate可以傳送text,uri',
