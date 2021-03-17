@@ -62,7 +62,7 @@ def handle_message(event):
 def handle_postback(event):
     data = json.loads(event.postback.data, strict=False)
     user_id = event.source.user_id
-    print(status)
+    print(data['status'])
     if status_helper.check_status(data['status'], user_id):
         if data['status'] == 'accounting':
             reply_template = accounting_template.start_accounting(data, user_id)
