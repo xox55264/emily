@@ -20,8 +20,8 @@ def menu_template(text):
 def date_template(status, text):
     today = datetime.today().date()
     yesterday = datetime.today().date()-timedelta(days=1)
-    today_data = {'status': status, 'date': today}
-    yesterday_data = {'status': status, 'date': yesterday}
+    today_data = {'status': status, 'date': str(today)}
+    yesterday_data = {'status': status, 'date': str(yesterday)}
     other_data = {'status': status, 'date': None}
     template = TemplateSendMessage(
             alt_text=text,
