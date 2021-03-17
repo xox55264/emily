@@ -4,6 +4,8 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction, PostbackEvent
+from intentions import accounting
+
 
 app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -57,6 +59,9 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
     reply_text = TextSendMessage(text='postback event')
+    data = json.loads(event.postback.data, strict=False)
+    # if data['status'] == 'accounting':
+    #     reply_message =
     template_message = TemplateSendMessage(
         alt_text='test alt text',
         template=ButtonsTemplate(
@@ -74,8 +79,7 @@ def handle_postback(event):
             ]
         )
     )
-    reply_data = json.loads(event.postback.data, strict=False)
-    print(type(reply_data), reply_data)
+    print(event.source.userId)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])

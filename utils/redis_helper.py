@@ -12,7 +12,7 @@ class RedisHelper(object):
     def get_value(self, key):
         return self.r.get(key)
 
-    def set_value(self, key, value, expire=None):
+    def set_value(self, key, value, expire=60):
         return self.r.set(key, value, ex=expire, nx=True)
 
     def compare_vaule(self, key, value):
