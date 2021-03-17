@@ -22,7 +22,7 @@ def date_template(status, text):
     yesterday = datetime.today().date()-timedelta(days=1)
     today_data = {'status': status, 'date': str(today)}
     yesterday_data = {'status': status, 'date': str(yesterday)}
-    other_data = {'status': status, 'date': None}
+    other_data = {'status': f'other_{status}', 'date': None}
     template = TemplateSendMessage(
             alt_text=text,
             template=ButtonsTemplate(
@@ -44,6 +44,10 @@ def date_template(status, text):
             )
     )
     return template
+
+def simple_text_template(text):
+    return TextSendMessage(text=text)
+
 
 '''
 TemplateSendMessage(

@@ -34,30 +34,28 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    user_id = event.source.user_id
+    status = status_helper.get_status(user_id)
+    if status == 'accounting_date':
+        data = {'status': status, 'date': event.message.text}
+        reply_template = accounting_template.get_date(data, user_id)
+    elif status == 'accounting_item':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_item(data, user_id)
+    elif status == 'accounting_amount':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_amount(data, user_id)
+    elif status == 'accounting_price':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_price(data, user_id)
+
+    else:
+        reply_template = Intention.menu(False)
+
     line_bot_api.reply_message(
         event.reply_token,
-        Intention.menu(False))
-    # reply_text = TextSendMessage(text=event.message.text)
-    # template_message = TemplateSendMessage(
-    #     alt_text='test alt text',
-    #     template=ButtonsTemplate(
-    #         title='這是ButtonsTemplate',
-    #         text='ButtonsTemplate可以傳送text,uri',
-    #         actions=[
-    #             MessageTemplateAction(
-    #                 label='ButtonsTemplate',
-    #                 text='ButtonsTemplate'
-    #             ),
-    #             PostbackTemplateAction(
-    #                 label='test label',
-    #                 data='{"a":"123", "b": "456"}'
-    #             )
-    #         ]
-    #     )
-    # )
-    # line_bot_api.reply_message(
-    #     event.reply_token,
-    #     [template_message, reply_text])
+        reply_template
+        )
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
@@ -67,7 +65,9 @@ def handle_postback(event):
         if data['status'] == 'accounting':
             reply_template = accounting_template.start_accounting(data, user_id)
 
-        print(event.source.user_id)
+        elif data['status'] == 'accounting_date':
+            reply_template = accounting_template.get_date(data, user_id)
+
         line_bot_api.reply_message(
             event.reply_token,
             reply_template)

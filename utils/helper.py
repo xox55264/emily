@@ -32,6 +32,9 @@ class StatusHelper(object):
         self.config = configparser.ConfigParser(allow_no_value=True)
         self.config.read('status.conf')
 
+    def get_status(self, user_id):
+        return self.redis_helper.get_value(f'{user_id}_status')
+
     def set_status(self, status, user_id):
         return self.redis_helper.set_value(f'{user_id}_status', status)
 
