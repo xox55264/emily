@@ -65,7 +65,7 @@ def handle_postback(event):
     print(data['status'])
     if status_helper.check_status(data['status'], user_id):
         if data['status'] == 'accounting':
-            reply_template = accounting_template.start_accounting(data, user_id)
+            reply_template = accounting_template.start_accounting(data)
 
         elif data['status'] == 'accounting_date':
             reply_template = accounting_template.get_date(data, user_id)
