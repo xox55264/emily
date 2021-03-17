@@ -44,11 +44,12 @@ def handle_message(event):
                 ),
                 PostbackTemplateAction(
                     label='test label',
-                    data='key1=value1&key2=value2'
+                    data='{a:"123", b: "456"}'
                 )
             ]
         )
     )
+    print(TextMessage)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
