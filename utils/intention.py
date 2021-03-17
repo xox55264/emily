@@ -40,18 +40,19 @@ class Accounting(Intention):
     def __init__(self):
         super(Accounting, self).__init__()
 
-    def start_accounting(self, data):
+    def start_accounting(self, data, user_id):
+        self.status_helper.set_status(self.status_helper.get_next_status(data['status']), user_id)
         reply_template = template.date_template(self.status_helper.get_next_status(data['status']), '請輸入記帳日期')
         return reply_template
 
     def get_date(self, data, user_id):
         # print(data['date'])
-        # if data['date']:
-        #     reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '請輸入項目')
-        # else:
-        #     reply_template = template.simple_text_template('請輸入記帳日期，格式為YYYY-mm-dd')
-        # return reply_template
-        reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '項目')
+        if data['date']:
+            reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '請輸入項目')
+        else:
+            reply_template = template.simple_text_template('請輸入記帳日期，格式為YYYY-mm-dd')
+        return reply_template
+        # reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '項目')
         return reply_template
 
     def get_item(self, data, user_id):
