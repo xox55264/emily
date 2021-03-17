@@ -6,7 +6,6 @@ class Intention(object):
     def __init__(self):
         super(Intention, self).__init__()
         self.status_helper = StatusHelper()
-        self.
 
     @staticmethod
     def menu(status_checking):
