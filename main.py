@@ -4,8 +4,8 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction, PostbackEvent
-from intentions import accounting
-
+from utils.intention import Accounting, Intention
+from utils.helper import StatusHelper
 
 app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -58,31 +58,22 @@ def handle_message(event):
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
-    reply_text = TextSendMessage(text='postback event')
     data = json.loads(event.postback.data, strict=False)
-    # if data['status'] == 'accounting':
-    #     reply_message =
-    template_message = TemplateSendMessage(
-        alt_text='test alt text',
-        template=ButtonsTemplate(
-            title='這是ButtonsTemplate',
-            text='ButtonsTemplate可以傳送text,uri',
-            actions=[
-                PostbackTemplateAction(
-                    label='test label1',
-                    data='a=1&b=2'
-                ),
-                PostbackTemplateAction(
-                    label='test label2',
-                    data='{"a":"123", "b": "456"}'
-                )
-            ]
-        )
-    )
-    print(event.source.user_id)
-    line_bot_api.reply_message(
-        event.reply_token,
-        [template_message, reply_text])
+    user_id = event.source.user_id
+    if status_helper.check_status(data['status'], user_id):
+        if data['status'] == 'accounting':
+            reply_template = accounting_template.start_accounting()
+
+        print(event.source.user_id)
+        line_bot_api.reply_message(
+            event.reply_token,
+            reply_template)
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            Intention.menu(False))
 
 if __name__ == "__main__":
+    status_helper = StatusHelper()
+    accounting_template = Accounting()
     app.run(debug=True, host='0.0.0.0', port=6969)

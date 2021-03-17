@@ -1,5 +1,6 @@
 import redis
 import os
+import configparser
 
 class RedisHelper(object):
     """docstring for RedisHelper"""
@@ -23,3 +24,19 @@ class RedisHelper(object):
 
     def check_key_exist(self, key):
         return self.r.exists(key)
+
+class StatusHelper(object):
+    def __init__(self):
+        super(StatusHelper, self).__init__()
+        self.redis_helper = RedisHelper()
+        self.config = configparser.ConfigParser(allow_no_value=True)
+        self.config.read('status.conf')
+
+    def set_status(self, status, user_id):
+        return self.redis_helper.set_value(f'{user_id}_status', status)
+
+    def check_status(self, status, user_id):
+        return self.redis_helper.get_value(f'{user_id}_status') == self.config[status]['prev_status']
+
+    def get_next_status(self, status):
+        return self.config[status]['next_status']
