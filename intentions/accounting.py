@@ -1,6 +1,8 @@
-from intentions import intention
+from intentions.intention import Intention
 
-class Accounting(intention):
+class Accounting(Intention):
+    def __init__(self):
+        super(Accounting, self).__init__()
 
     def start_accounting(self, data):
         pass
