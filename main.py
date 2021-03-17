@@ -44,7 +44,6 @@ def handle_message(event):
                 ),
                 PostbackTemplateAction(
                     label='test label',
-                    display_text='test display_text',
                     text='test text',
                     data='test data'
                 )
