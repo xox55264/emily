@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -73,7 +74,8 @@ def handle_postback(event):
             ]
         )
     )
-    print(type(event.postback.data), event.postback.params)
+    reply_data = json.loads(event.postback.data, strict=False)
+    print(type(reply_data), reply_data)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
