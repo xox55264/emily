@@ -17,8 +17,8 @@ class Accounting(Intention):
         super(Accounting, self).__init__()
 
     def start_accounting(self, data, user_id):
-        template = template.date_template(self.status_helper.get_next_status(data['status']), '請輸入記帳日期')
-        return template
+        reply_template = template.date_template(self.status_helper.get_next_status(data['status']), '請輸入記帳日期')
+        return reply_template
 
     # def get_date(self, data):
     #     template = template.date_template(self.status_helper.get_next_status(data['status']), '請輸入記帳日期')
