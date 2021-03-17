@@ -32,9 +32,44 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_text = TextSendMessage(text=event.message.text)
+    test_template = '''{
+  "type": "template",
+  "altText": "",
+  "template": {
+      "type": "buttons",
+      "thumbnailImageUrl": "",
+      "imageAspectRatio": "",
+      "imageSize": "",
+      "imageBackgroundColor": "",
+      "title": "",
+      "text": "text",
+      "defaultAction": {
+          "type": "uri",
+          "label": "View detail",
+          "uri": "http://example.com/page/123"
+      },
+      "actions": [
+          {
+            "type": "postback",
+            "label": "Buy",
+            "data": "action=buy&itemid=123"
+          },
+          {
+            "type": "postback",
+            "label": "Add to cart",
+            "data": "action=add&itemid=123"
+          },
+          {
+            "type": "uri",
+            "label": "View detail",
+            "uri": "http://example.com/page/123"
+          }
+      ]
+  }
+}'''
     line_bot_api.reply_message(
         event.reply_token,
-        [reply_text, reply_text])
+        [test_template, reply_text])
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=6969)
