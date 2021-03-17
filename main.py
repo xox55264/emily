@@ -31,12 +31,10 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    reply_text = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
+        [reply_text, reply_text])
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=6969)
