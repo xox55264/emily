@@ -45,7 +45,7 @@ def handle_message(event):
                 ),
                 PostbackTemplateAction(
                     label='test label',
-                    data='{a:"123", b: "456"}'
+                    data='{"a":"123", "b": "456"}'
                 )
             ]
         )
@@ -69,7 +69,7 @@ def handle_postback(event):
                 ),
                 PostbackTemplateAction(
                     label='test label2',
-                    data='{a:"123", b: "456"}'
+                    data='{"a":"123", "b": "456"}'
                 )
             ]
         )
