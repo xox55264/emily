@@ -36,6 +36,7 @@ def callback():
 def handle_message(event):
     user_id = event.source.user_id
     status = status_helper.get_status(user_id)
+    print(status)
     if status == 'accounting_date':
         data = {'status': status, 'date': event.message.text}
         reply_template = accounting_template.get_date(data, user_id)
