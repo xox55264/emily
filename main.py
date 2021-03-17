@@ -73,7 +73,7 @@ def handle_postback(event):
             ]
         )
     )
-    print(type(event.postback.data))
+    print(type(event.postback.data), event.postback.params)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
