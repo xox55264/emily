@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, URITemplateAction, PostbackTemplateAction
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction, PostbackEvent
 
 app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -49,7 +49,31 @@ def handle_message(event):
             ]
         )
     )
-    print(TextMessage)
+    line_bot_api.reply_message(
+        event.reply_token,
+        [template_message, reply_text])
+
+@handler.add(PostbackEvent, message=TextMessage)
+def handle_postback(event):
+    reply_text = TextSendMessage(text='postback event')
+    template_message = TemplateSendMessage(
+        alt_text='test alt text',
+        template=ButtonsTemplate(
+            title='這是ButtonsTemplate',
+            text='ButtonsTemplate可以傳送text,uri',
+            actions=[
+                MessageTemplateAction(
+                    label='ButtonsTemplate',
+                    text='ButtonsTemplate'
+                ),
+                PostbackTemplateAction(
+                    label='test label',
+                    data='{a:"123", b: "456"}'
+                )
+            ]
+        )
+    )
+    print(event.postback.data)
     line_bot_api.reply_message(
         event.reply_token,
         [template_message, reply_text])
