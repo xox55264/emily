@@ -43,9 +43,10 @@ def handle_message(event):
                     text='ButtonsTemplate'
                 ),
                 PostbackTemplateAction(
-                    label='postback',
-                    text='postback text',
-                    data='postback1'
+                    label='test label',
+                    display_text='test display_text',
+                    text='test text',
+                    data='test data'
                 )
             ]
         )
