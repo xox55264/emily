@@ -37,15 +37,10 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='這是ButtonsTemplate',
             text='ButtonsTemplate可以傳送text,uri',
-            thumbnail_image_url='顯示在開頭的大圖片網址',
             actions=[
                 MessageTemplateAction(
                     label='ButtonsTemplate',
                     text='ButtonsTemplate'
-                ),
-                URITemplateAction(
-                    label='VIDEO1',
-                    uri='影片網址'
                 ),
                 PostbackTemplateAction(
                     label='postback',
