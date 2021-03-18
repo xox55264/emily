@@ -35,11 +35,11 @@ class StatusHelper(object):
     def get_status(self, user_id):
         return self.redis_helper.get_value(f'{user_id}_status')
 
-    def set_status(self, status, user_id):
-        return self.redis_helper.set_value(f'{user_id}_status', status)
-
-    def reset_status(self, user_id):
-        return self.redis_helper.delete_key(f'{user_id}_status')
+    def update_status(self, status, user_id):
+        if status:
+            return self.redis_helper.set_value(f'{user_id}_status', status)
+        else:
+            return self.redis_helper.delete_key(f'{user_id}_status')
 
     def check_status(self, status, user_id):
         return self.redis_helper.get_value(f'{user_id}_status') == self.config[status]['prev_status']

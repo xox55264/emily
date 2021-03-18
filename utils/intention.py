@@ -15,7 +15,7 @@ class Intention(object):
 
     def simple_text_processer(self, status, user_id, text):
         next_status = self.status_helper.get_next_status(status)
-        status_update = self.status_helper.set_status(next_status, user_id)
+        status_update = self.status_helper.update_status(next_status, user_id)
         # if status_update:
             # reply_template = template.item_template(text)
             # return reply_template, status_update
@@ -45,7 +45,7 @@ class Accounting(Intention):
         super(Accounting, self).__init__()
 
     def start_accounting(self, data, user_id):
-        self.status_helper.set_status(data['status'], user_id)
+        self.status_helper.update_status(data['status'], user_id)
         reply_template = template.date_template(self.status_helper.get_next_status(data['status']), '請輸入記帳日期')
         return reply_template
 
