@@ -23,15 +23,14 @@ class Intention(object):
         return reply_template, status_update
 
     def set_temporary_data(self, status, user_id, value):
-        key = f'{status}_{user_id}'
-        return self.redis_helper.set_value(key, value)
+        return self.redis_helper.set_value(f'{status}_{user_id}', value)
 
     def get_temporary_data(self, status, user_id):
         return self.redis_helper.get_value(f'{status}_{user_id}')
 
     def simple_message_processer(self, status, user_id, value, text):
         reply_template, status_update = self.simple_text_processer(status, user_id, text)
-        # data_storage = self.set_temporary_data(status, user_id, value)
+        data_storage = self.set_temporary_data(status, user_id, value)
         # print(data_storage, status_update)
         # if data_storage & status_update:
         return reply_template
