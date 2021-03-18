@@ -23,6 +23,7 @@ class Intention(object):
         return reply_template, status_update
 
     def set_temporary_data(self, status, user_id, value):
+        print(f'{status}_{user_id}', value)
         return self.redis_helper.set_value(f'{status}_{user_id}', value)
 
     def get_temporary_data(self, status, user_id):
