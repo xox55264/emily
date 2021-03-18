@@ -72,5 +72,5 @@ class Accounting(Intention):
         # item = self.get_temporary_data('accounting_item', user_id)
         # amount = self.get_temporary_data('accounting_amount', user_id)
         # price = data['price']
-        reply_template = self.simple_text_processer(data['status'], user_id, '請輸入項目（數字）')
+        reply_template, status_update = self.simple_text_processer(data['status'], user_id, '請輸入項目（數字）')
         return reply_template
