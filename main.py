@@ -44,10 +44,10 @@ def handle_message(event):
         data = {'status': status, 'item': event.message.text}
         reply_template = accounting_template.get_item(data, user_id)
     elif status == 'accounting_amount':
-        data = {'status': status, 'item': event.message.text}
+        data = {'status': status, 'amount': event.message.text}
         reply_template = accounting_template.get_amount(data, user_id)
     elif status == 'accounting_price':
-        data = {'status': status, 'item': event.message.text}
+        data = {'status': status, 'price': event.message.text}
         reply_template = accounting_template.get_price(data, user_id)
 
     else:
