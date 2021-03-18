@@ -67,9 +67,10 @@ class Accounting(Intention):
         return reply_template
 
     def get_price(self, data, user_id):
-        # date = self.get_temporary_data('accounting_date', user_id)
-        # item = self.get_temporary_data('accounting_item', user_id)
-        # amount = self.get_temporary_data('accounting_amount', user_id)
-        # price = data['price']
-        reply_template, status_update = self.simple_text_processer(data['status'], user_id, '請輸入項目（數字）')
+        date = self.get_temporary_data('accounting_date', user_id)
+        item = self.get_temporary_data('accounting_item', user_id)
+        amount = self.get_temporary_data('accounting_amount', user_id)
+        price = data['price']
+        text = f'日期：{date}, 項目：{item}, 數量：{amount}, 總金額：{price}'
+        reply_template, status_update = self.simple_text_processer(data['status'], user_id, text)
         return reply_template
