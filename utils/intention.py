@@ -23,8 +23,8 @@ class Intention(object):
         return reply_template, status_update
 
     def set_temporary_data(self, status, user_id, value):
-        print(f'{status}_{user_id}', value)
-        return self.redis_helper.set_value(f'{status}_{user_id}', value)
+        key = f'{status}_{user_id}'
+        return self.redis_helper.set_value(key=key, value=value)
 
     def get_temporary_data(self, status, user_id):
         return self.redis_helper.get_value(f'{status}_{user_id}')
@@ -57,7 +57,7 @@ class Accounting(Intention):
             reply_template = template.simple_text_template('請輸入記帳日期，格式為YYYY-mm-dd')
         return reply_template
         # reply_template = self.simple_message_processer(data['status'], user_id, data['date'], '項目')
-        return reply_template
+        # return reply_template
 
     def get_item(self, data, user_id):
         reply_template = self.simple_message_processer(data['status'], user_id, data['item'], '請輸入數量（數字）')
