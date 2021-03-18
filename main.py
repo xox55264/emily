@@ -62,7 +62,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
-    status = status_helper.get_status(user_id) if status_helper.get_status(user_id) else 'account'
+    status = status_helper.get_status(user_id) if status_helper.get_status(user_id) else 'accounting'
     next_status = status_helper.get_next_status(status)
     status_helper.set_status(next_status, user_id)
     reply_template = TextSendMessage(text=f'{status}_{next_status}')
