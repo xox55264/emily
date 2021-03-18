@@ -51,7 +51,7 @@ def handle_message(event):
         reply_template = accounting_template.get_price(data, user_id)
 
     else:
-        status_helper.reset_status(user_id)
+        status_helper.update_status(None, user_id)
         reply_template = Intention.menu(False)
 
     line_bot_api.reply_message(
