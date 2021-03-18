@@ -14,7 +14,7 @@ class RedisHelper(object):
         return self.r.get(key)
 
     def set_value(self, key, value, expire=60):
-        return self.r.set(key, value, ex=expire, nx=True)
+        return self.r.set(key, value, ex=expire, nx=False)
 
     def compare_vaule(self, key, value):
         return value == self.get_value(key)
