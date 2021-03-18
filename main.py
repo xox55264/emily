@@ -32,44 +32,44 @@ def callback():
 
     return 'OK'
 
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     user_id = event.source.user_id
-#     status = status_helper.get_status(user_id)
-#     print(status)
-#     if status == 'accounting_date':
-#         data = {'status': status, 'date': event.message.text}
-#         reply_template = accounting_template.get_date(data, user_id)
-#     elif status == 'accounting_item':
-#         data = {'status': status, 'item': event.message.text}
-#         reply_template = accounting_template.get_item(data, user_id)
-#     elif status == 'accounting_amount':
-#         data = {'status': status, 'item': event.message.text}
-#         reply_template = accounting_template.get_amount(data, user_id)
-#     elif status == 'accounting_price':
-#         data = {'status': status, 'item': event.message.text}
-#         reply_template = accounting_template.get_price(data, user_id)
-#
-#     else:
-#         status_helper.reset_status(user_id)
-#         reply_template = Intention.menu(False)
-#
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         reply_template
-#         )
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
-    status = status_helper.get_status(user_id) if status_helper.get_status(user_id) else 'accounting'
-    next_status = status_helper.get_next_status(status)
-    status_helper.set_status(next_status, user_id)
-    reply_template = TextSendMessage(text=f'{status}_{next_status}')
+    status = status_helper.get_status(user_id)
+    print(status)
+    if status == 'accounting_date':
+        data = {'status': status, 'date': event.message.text}
+        reply_template = accounting_template.get_date(data, user_id)
+    elif status == 'accounting_item':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_item(data, user_id)
+    elif status == 'accounting_amount':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_amount(data, user_id)
+    elif status == 'accounting_price':
+        data = {'status': status, 'item': event.message.text}
+        reply_template = accounting_template.get_price(data, user_id)
+
+    else:
+        status_helper.reset_status(user_id)
+        reply_template = Intention.menu(False)
+
     line_bot_api.reply_message(
         event.reply_token,
         reply_template
         )
+
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     user_id = event.source.user_id
+#     status = status_helper.get_status(user_id) if status_helper.get_status(user_id) else 'accounting'
+#     next_status = status_helper.get_next_status(status)
+#     status_helper.set_status(next_status, user_id)
+#     reply_template = TextSendMessage(text=f'{status}_{next_status}')
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         reply_template
+#         )
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
